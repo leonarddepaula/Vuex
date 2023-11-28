@@ -1,21 +1,41 @@
 <template>
     <div>
-        Lista Itens {{ tipo }}
-        <br>
-        <item />
+        <item v-for="(item, indice) in itens" :key="indice" :dados="item" />
     </div>
 </template>
 
 <script>
 import Item from '@/components/Item.vue'
+import { mapState } from 'vuex'
 
 export default {
     name: 'ListaItens',
-    components: { 
+    components: {
         Item
     },
     props: {
         tipo: String
+    },
+    computed: {
+        ...mapState({ // pega o conteudo de casa objeto em store.js
+            enfermeiros: state => state.enfermeiros,
+            socorristas: state => state.socorristas,
+            medicos: state => state.medicos,
+            carros: state => state.equipamentos.carros,
+            telefones: state => state.equipamentos.telefones,
+            kitsDeReanimacao: state => state.equipamentos.kitsDeReanimacao
+        }),
+        itens() { // controla atraves da prop qual lista de ojetos mostrar
+            switch (this.tipo) {
+                case 'enfermeiros': return this.enfermeiros
+                case 'socorristas': return this.socorristas
+                case 'medicos': return this.medicos
+                case 'carros': return this.carros
+                case 'telefones': return this.telefones
+                case 'kits-de-reanimacao': return this.kitsDeReanimacao
+            }
+            return []
+        }
     }
 }
 </script>
