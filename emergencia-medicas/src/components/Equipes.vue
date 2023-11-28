@@ -17,6 +17,7 @@
 import ListaItens from '@/components/ListaItens'
 
 export default {
+    // eslint-disable-next-line vue/multi-word-component-names
     name: 'Equipes',
     components: {
         ListaItens

@@ -3,7 +3,7 @@
     
     <nav class="navbar navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Emergencias Médicas</a>
+        <a class="navbar-brand" href="#">{{tituloCustomizado}}</a>
       </div>
     </nav>
 
@@ -47,9 +47,14 @@ export default {
     Equipes,
     Profissionais
   },
+  // eslint-disable-next-line vue/multi-word-component-names
   name: 'Index',
   props: {
     msg: String
-  }
+  },
+  computed: {
+    tituloCustomizado(){
+    return `.: ${this.$store.state.titulo}`
+  }}
 }
 </script>
