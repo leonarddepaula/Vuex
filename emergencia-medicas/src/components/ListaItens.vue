@@ -8,12 +8,11 @@
         </select>
     </div>
     <div>
-        <item v-for="(item, indice) in itens" :key="indice" :dados="item" />
+        <item v-for="(item, indice) in itens" :key="indice" :dados="item" :tipo="tipo" />
         <div class="mt-1" v-if="tipo == 'socorristas'">
             Total: {{ totalSocorristasPorTurno(turno) }}
         </div>
     </div>
-
 </template>
 
 <script>
