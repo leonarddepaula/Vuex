@@ -1,9 +1,9 @@
 <template>
   <div>
-    
+
     <nav class="navbar navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">{{tituloCustomizado}}</a>
+        <a class="navbar-brand" href="#">{{ tituloCustomizado }}</a>
       </div>
     </nav>
 
@@ -39,9 +39,10 @@ import ConfiguracaoEquipe from './ConfiguracaoEquipe.vue'
 import Equipamentos from './Equipamentos.vue'
 import Equipes from './Equipes.vue'
 import Profissionais from './Profissionais.vue'
+import { mapMutations } from 'vuex'
 
 export default {
-  components: { 
+  components: {
     ConfiguracaoEquipe,
     Equipamentos,
     Equipes,
@@ -53,8 +54,35 @@ export default {
     msg: String
   },
   computed: {
-    tituloCustomizado(){
-    return `.: ${this.$store.state.titulo}`
-  }}
+    tituloCustomizado() {
+      return `.: ${this.$store.state.titulo}`
+    }
+  },
+  methods: {
+    ...mapMutations(['setEnfermeiros', 'setSocorristas', 'setMedicos', 'setCarros', 'setTelefones', 'setKitsDeReanimacao'])
+  },
+  created() {
+    this.$store.dispatch({
+      type: 'fetchEquipamentos',
+      carros: true,
+      telefones: false,
+      KitsDeReanimacao: false
+    })
+    this.$store.dispatch('fetchProficionais')
+
+
+
+
+
+    /*
+    fetch('http://localhost:3000/equipamentos')
+      .then(response => response.json())
+      .then(dados => {
+        this.setCarros(dados.carros)
+        this.setTelefones(dados)
+        this.setKitsDeReanimacao(dados)
+      })
+      */
+  }
 }
 </script>
