@@ -11,6 +11,7 @@ export default new Vuex.Store({
       telefone: "",
       kitDeReanimacao: "",
     },
+    equipes: [],
     enfermeiros: [],
     socorristas: [],
     medicos: [],
@@ -80,6 +81,10 @@ export default new Vuex.Store({
     setKitsDeReanimacao: (state, { kitsDeReanimacao }) => {
       state.equipamentos.kitsDeReanimacao = kitsDeReanimacao;
     },
+    adicionarEquipeEmEquipes: (state, payload) => {
+      state.equipes.push(payload)
+      state.equipe = {}
+    }
   },
   actions: {
     fetchEquipamentos(context, payload){
@@ -89,14 +94,14 @@ export default new Vuex.Store({
       .then(dados => {
          context.commit('setCarros', dados.carros)
       // processamento assíncrono
-      context.commit('setTelefones', dados.telefones)
+      context.commit('setTelefones', dados)
      // processamento assincrono 
       // diversas regras de negócio 
-      context.commit('setKitsDeReanimacao', dados.kitsDeReanimacao)
+      context.commit('setKitsDeReanimacao', dados)
       })
       
     },
-    fetchProficionais(context){
+    fetchProfissionais(context){
       fetch('http://localhost:3000/enfermeiros')
       .then(response => response.json())
       .then(dados => context.commit('setEnfermeiros',dados))

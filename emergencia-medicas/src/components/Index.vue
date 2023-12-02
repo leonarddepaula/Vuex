@@ -39,7 +39,7 @@ import ConfiguracaoEquipe from './ConfiguracaoEquipe.vue'
 import Equipamentos from './Equipamentos.vue'
 import Equipes from './Equipes.vue'
 import Profissionais from './Profissionais.vue'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 
 export default {
   components: {
@@ -59,9 +59,27 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['setEnfermeiros', 'setSocorristas', 'setMedicos', 'setCarros', 'setTelefones', 'setKitsDeReanimacao'])
+    ...mapMutations([
+        'setEnfermeiros', 
+        'setSocorristas', 
+        'setMedicos', 
+        'setCarros', 
+        'setTelefones', 
+        'setKitsDeReanimacao'
+      ]),
+    // ...mapActions(['fetchEquipamentos', 'fetchProfissionais'])
+    ...mapActions({
+      fetchEquipamentos: (dispatch, payload) =>{
+        //implementar logica
+        dispatch('fetchEquipamentos', payload)
+      },
+      fetchProfissionais: (dispatch) => {
+        dispatch('fetchProfissionais')
+      }
+    })
   },
   created() {
+    /*
     this.$store.dispatch({
       type: 'fetchEquipamentos',
       carros: true,
@@ -69,10 +87,15 @@ export default {
       KitsDeReanimacao: false
     })
     this.$store.dispatch('fetchProficionais')
+   */
+  this.fetchEquipamentos({
+    carros: true,
+      telefones: true,
+      KitsDeReanimacao: true
+  })
 
 
-
-
+  this.fetchProfissionais()
 
     /*
     fetch('http://localhost:3000/equipamentos')
